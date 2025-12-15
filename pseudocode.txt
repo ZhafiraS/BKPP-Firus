@@ -5,14 +5,20 @@ Kamus
     jam, menit, tarif, pilihan : integer
     stop : boolean
 Algoritma
+    jam1Motor = 3000
+    jam2Motor = 2000
+    jam1Mobil = 5000
+    jam2Mobil = 3000
+    tarif = 0
+
     repeat
         output("Masukkan tipe kendaraan (Motor/Mobil): ")
         repeat
             input(tipeKendaraan)
-            if tipeKendaraan != "Motor" AND tipeKendaraan != "Mobil" then
+            while tipeKendaraan != "Motor" AND tipeKendaraan != "Mobil" then
                 output("Input invalid, kendaraan hanya Motor/Mobil")
                 output("Masukkan tipe kendaraan: ")
-            endif
+            endwhile
         until (tipeKendaraan = "Motor" OR tipeKendaraan = "Mobil")
 
         output("Masukkan jam parkir: ")
@@ -30,13 +36,14 @@ Algoritma
             if menit < 0 OR menit > 59 then
                 output("Input invalid, menit hanya bisa bernilai 0-59")
                 output("Masukkan menit parkir: ")
-        until (menit >= 0 AND menit <= 59)
+            endif
+        until (menit > 0 AND menit < 59)
 
-        if jam = 0 AND menit = 0 then
+        if jam == 0 AND menit == 0 then
             output("Kendaraan tidak parkir")
         else
             if tipeKendaraan = "Motor" then
-                if jam = 0 AND menit != 0 then
+                if jam == 0 AND menit != 0 then
                     tarif ← jam1Motor
                 else 
                     tarif ← ((jam - 1)* jam2Motor) + jam1Motor
@@ -45,7 +52,7 @@ Algoritma
                     endif
                 endif
             else
-                if jam = 0 AND menit != 0 then
+                if jam == 0 AND menit != 0 then
                     tarif ← jam1Mobil
                 else
                     tarif ← ((jam - 1) * jam2Mobil) + jam1Mobil
@@ -68,9 +75,9 @@ Algoritma
                 output("Pilihan tidak valid, masukkan 1 atau 2")
                 output("Pilihan (1/2): ")
             endif
-        until (pilihan = 1 OR pilihan = 2)
+        until (pilihan == 1 OR pilihan == 2)
 
-    until(pilihan = 2)
+    until(pilihan == 2)
     output("Program Selesai")
 
 Endprogram
