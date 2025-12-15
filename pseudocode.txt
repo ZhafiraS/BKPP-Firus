@@ -1,0 +1,76 @@
+Program_TarifParkir
+Kamus
+    tipeKendaraan : string
+    jam1Motor, jam2Motor, jam1Mobil, jam2Mobil  : integer
+    jam, menit, tarif, pilihan : integer
+    stop : boolean
+Algoritma
+    repeat
+        output("Masukkan tipe kendaraan (Motor/Mobil): ")
+        repeat
+            input(tipeKendaraan)
+            if tipeKendaraan != "Motor" AND tipeKendaraan != "Mobil" then
+                output("Input invalid, kendaraan hanya Motor/Mobil")
+                output("Masukkan tipe kendaraan: ")
+            endif
+        until (tipeKendaraan = "Motor" OR tipeKendaraan = "Mobil")
+
+        output("Masukkan jam parkir: ")
+        repeat
+            input(jam)
+            if jam < 0 then
+                output("Input invalid, jam hanya bisa bernilai 0 atau lebih)
+                output("Masukkan jam parkir")
+            endif
+        until (jam >= 0)
+
+        output("Masukkan menit parkir: ")
+        repeat
+            input(menit)
+            if menit < 0 OR menit > 59 then
+                output("Input invalid, menit hanya bisa bernilai 0-59")
+                output("Masukkan menit parkir: ")
+        until (menit >= 0 AND menit <= 59)
+
+        if jam = 0 AND menit = 0 then
+            output("Kendaraan tidak parkir")
+        else
+            if tipeKendaraan = "Motor" then
+                if jam = 0 AND menit != 0 then
+                    tarif ← jam1Motor
+                else 
+                    tarif ← ((jam - 1)* jam2Motor) + jam1Motor
+                    if menit != 0 then
+                        tarif ← tarif + jam2Motor
+                    endif
+                endif
+            else
+                if jam = 0 AND menit != 0 then
+                    tarif ← jam1Mobil
+                else
+                    tarif ← ((jam - 1) * jam2Mobil) + jam1Mobil
+                    if menit != 0 then
+                        tarif ← tarif + jam2Mobil
+                    endif
+                endif
+            endif
+            output("Tarif parkir yang harus dibayar adalah Rp.", tarif, " dengan tipe kendaraan", tipeKendaraan")
+        endif
+
+        output("Apakah ingin memasukkan tarif parkir lagi?")
+        output("1. Iya")
+        output("2. Tidak")
+        output("Pilihan (1/2): ")
+    
+        repeat
+            input(pilihan)
+            if pilihan != 1 AND pilihan != 2 then
+                output("Pilihan tidak valid, masukkan 1 atau 2")
+                output("Pilihan (1/2): ")
+            endif
+        until (pilihan = 1 OR pilihan = 2)
+
+    until(pilihan = 2)
+    output("Program Selesai")
+
+Endprogram
