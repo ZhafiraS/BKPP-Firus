@@ -4,19 +4,23 @@ import "fmt"
 
 func main() {
 	var tipekendaraan string
-	var jam1Motor, jam1Mobil, jam2Motor, jam2Mobil int
-	var jam, menit, tarif, pilihan int
+	var jam1Motor, jam1Mobil, jam2Motor, jam2Mobil, jam1Sepeda, jam2Sepeda, jam1Bus, jam2Bus int
+	var jam, menit, tarif, pilihan, pembayaran int
 	var stop bool
 	stop = false
 	jam1Motor = 3000
 	jam2Motor = 2000
 	jam1Mobil = 5000
 	jam2Mobil = 3000
+	jam1Sepeda = 1000
+	jam2Sepeda = 500
+	jam1Bus = 10000
+	jam2Bus = 7000
 	for !stop {
-		fmt.Print("Masukkan tipe kendaraan (Motor/Mobil): ")
+		fmt.Print("Masukkan tipe kendaraan (Motor/Mobil/Sepeda/Bus): ")
 		fmt.Scan(&tipekendaraan)
-		for tipekendaraan != "Motor" && tipekendaraan != "Mobil" {
-			fmt.Println("Input invalid, kendaraan hanya Motor/Mobil")
+		for tipekendaraan != "Motor" && tipekendaraan != "Mobil" && tipekendaraan != "Sepeda" && tipekendaraan != "Bus" {
+			fmt.Println("Input invalid, kendaraan hanya Motor/Mobil/Sepeda/Bus")
 			fmt.Print("Masukkan tipe kendaraan: ")
 			fmt.Scan(&tipekendaraan)
 		}
@@ -55,8 +59,41 @@ func main() {
 						tarif += jam2Mobil
 					}
 				}
+			} else if tipekendaraan == "Sepeda" {
+				if menit != 0 && jam == 0 {
+					tarif = jam1Sepeda
+				} else {
+					tarif = ((jam - 1) * jam2Sepeda) + jam1Sepeda
+					if menit != 0 {
+						tarif += jam2Sepeda
+					}
+				}
+			} else if tipekendaraan == "Bus" {
+				if menit != 0 && jam == 0 {
+					tarif = jam1Bus
+				} else {
+					tarif = ((jam - 1) * jam2Bus) + jam1Bus
+					if menit != 0 {
+						tarif += jam2Bus
+					}
+				}
 			}
 			fmt.Printf("Tarif parkir yang harus dibayar adalah Rp. %d dengan tipe kendaraan %s \n", tarif, tipekendaraan)
+			fmt.Println("\nMetode Pembayaran:")
+			fmt.Println("1. QRIS")
+			fmt.Println("2. Cash")
+			fmt.Print("Pilihan (1/2): ")
+			fmt.Scan(&pembayaran)
+			for pembayaran != 1 && pembayaran != 2 {
+				fmt.Println("Pembayaran tidak valid, masukkan 1 atau 2")
+				fmt.Print("Pilihan (1/2): ")
+				fmt.Scan(&pembayaran)
+			}
+			if pembayaran == 1 {
+				fmt.Println("Silahkan Scan QRIS.")
+			} else {
+				fmt.Println("Silahkan Bayar Tunai ke Petugas.")
+			}
 		}
 		fmt.Printf("\nApakah ingin memasukkan tarif parkir lagi? \n")
 		fmt.Println("1. Iya")
