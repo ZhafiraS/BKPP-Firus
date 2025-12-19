@@ -1,25 +1,29 @@
 Program_TarifParkir
 Kamus
     tipeKendaraan : string
-    jam1Motor, jam2Motor, jam1Mobil, jam2Mobil  : integer
-    jam, menit, tarif, pilihan : integer
+    jam1Motor, jam2Motor, jam1Mobil, jam2Mobil, jam1Sepeda, jam2Sepeda, jam1Bus, jam2Bus : integer
+    jam, menit, tarif, pilihan, pembayaran : integer
     stop : boolean
 Algoritma
     jam1Motor = 3000
     jam2Motor = 2000
     jam1Mobil = 5000
     jam2Mobil = 3000
+    jam1Sepeda = 1000
+    jam2Sepeda = 500
+    jam1Bus = 10000
+    jam2Bus = 7000
     tarif = 0
 
     repeat
-        output("Masukkan tipe kendaraan (Motor/Mobil): ")
+        output("Masukkan tipe kendaraan (Motor/Mobil/Sepeda/Bus): ")
         repeat
             input(tipeKendaraan)
-            while tipeKendaraan != "Motor" AND tipeKendaraan != "Mobil" then
-                output("Input invalid, kendaraan hanya Motor/Mobil")
+            while tipeKendaraan != "Motor" AND tipeKendaraan != "Mobil" AND tipeKendaraan != "Sepeda" AND tipeKendaraan != "Bus" then
+                output("Input invalid, kendaraan hanya Motor/Mobil/Sepeda/Bus")
                 output("Masukkan tipe kendaraan: ")
             endwhile
-        until (tipeKendaraan = "Motor" OR tipeKendaraan = "Mobil")
+        until (tipeKendaraan = "Motor" OR tipeKendaraan = "Mobil" OR tipeKendaraan = "Sepeda" OR tipeKendaraan "Bus")
 
         output("Masukkan jam parkir: ")
         repeat
@@ -51,7 +55,7 @@ Algoritma
                         tarif ← tarif + jam2Motor
                     endif
                 endif
-            else
+            else if tipeKendaraan = "Mobil" then
                 if jam == 0 AND menit != 0 then
                     tarif ← jam1Mobil
                 else
@@ -60,9 +64,39 @@ Algoritma
                         tarif ← tarif + jam2Mobil
                     endif
                 endif
+            else if tipeKendaraan = "Sepeda" then
+                if jam == 0 AND menit != 0 then
+                    tarif ← jam1Sepeda
+                else
+                    tarif ← ((jam - 1) * jam2Sepeda) + jam1Sepeda
+                    if menit != 0 then
+                        tarif ← tarif + jam2Sepeda
+                    endif
+                endif
+            else if tipeKendaraan = "Bus" then
+                if jam == 0 AND menit != 0 then
+                    tarif ← jam1Bus
+                else
+                    tarif ← ((jam - 1) * jam2Bus) + jam1Bus
+                    if menit != 0 then
+                        tarif ← tarif + jam2Bus
+                    endif
+                endif
             endif
-            output("Tarif parkir yang harus dibayar adalah Rp.", tarif, " dengan tipe kendaraan", tipeKendaraan")
         endif
+        output("Tarif parkir yang harus dibayar adalah Rp.", tarif, " dengan tipe kendaraan", tipeKendaraan")
+        output("Metode Pembayaran: ")
+        output("1. QRIS")
+        output("2. Cash")
+        output("Pilihan (1/2): ")
+        repeat
+            input(pembayaran)
+            if pembayaran != 1 AND pembayaran != 2 then
+                output("Pilihan tidak valid, masukkan 1 atau 2")
+                output("Pilihan (1/2): ")
+            endif
+        until (pembayaran == 1 OR pilihan == 2)
+                
 
         output("Apakah ingin memasukkan tarif parkir lagi?")
         output("1. Iya")
