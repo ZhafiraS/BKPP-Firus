@@ -23,7 +23,7 @@ Algoritma
                 output("Input invalid, kendaraan hanya Motor/Mobil/Sepeda/Bus")
                 output("Masukkan tipe kendaraan: ")
             endwhile
-        until (tipeKendaraan = "Motor" OR tipeKendaraan = "Mobil" OR tipeKendaraan = "Sepeda" OR tipeKendaraan "Bus")
+        until (tipeKendaraan == "Motor" OR tipeKendaraan == "Mobil" OR tipeKendaraan == "Sepeda" OR tipeKendaraan == "Bus")
 
         output("Masukkan jam parkir: ")
         repeat
